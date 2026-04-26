@@ -149,11 +149,11 @@ void menuUtama(){
 		cout << "        Selamat Datang!\n";
 		cout << "==============================\n";
 		cout << "1. Input Tugas\n";
-		cout << "2. Lihat Tugas\n";
+		cout << "2. Lihat Tugas(dengan sorting)\n";
 		cout << "3. Cari Tugas\n";
-		cout << "4. Edit Tugas\n";
-		cout << "5. Ubah Status Tugas\n";
-		cout << "6. Hapus Tugas\n";
+		cout << "4. Edit Tugas(Single Linked list)\n";
+		cout << "5. Ubah Status Tugas(Double Linked list)\n";
+		cout << "6. Hapus Tugas(Linked list kepala ekor)\n";
 		cout << "7. Logout\n";
 		cout << "Masukkan menu: ";
 		
