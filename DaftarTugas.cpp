@@ -16,17 +16,6 @@ struct Tugas {
 Tugas data[100];
 int n = 0;
 
-int bandingkan(char a[], char b[]) {
-	int i = 0;
-	while (a[i] != '\0' && b[i] != '\0') {
-		if (a[i] != b[i]) {
-			return a[i] - b[i];
-		}
-		i++;
-	}
-	return a[i] - b[i];
-}
-
 int inputAngka() {
 	int x;
 	while(!(cin >> x)) {
@@ -47,7 +36,7 @@ void bacaFile(){
 		return;
 	}
 	
-	while(fscanf(fp, "%d %s %s %d %d %d %d %d",
+	while(fscanf(fp, "%d|%[^|]|%[^|]|%d|%d|%d|%d|%d\n",
 		&data[n].id, data[n].judul,
 		data[n].deskripsi, &data[n].tgl_dl,
 		&data[n].bulan_dl, &data[n].tahun_dl,
@@ -68,7 +57,7 @@ void simpanFile() {
 	}
 	
 	for(int i = 0; i < n; i++) {
-		fprintf(fp, "%d %s %s %d %d %d %d %d\n",
+		fprintf(fp, "%d|%s|%s|%d|%d|%d|%d|%d\n",
 			data[i].id, data[i].judul,
 			data[i].deskripsi, data[i].tgl_dl,
 			data[i].bulan_dl, data[i].tahun_dl,
@@ -117,6 +106,8 @@ void inputTugas() {
 		data[n].status = 0;
 		
 		n++;
+
+		simpanFile();
 		cin.ignore();
 		cout << "Tugas berhasil ditambahkan!\n";
 	}
@@ -127,7 +118,85 @@ void inputTugas() {
 	cin >> ulang;
 }
 
+void bubbleSort(struct Tugas data[], int jumlah){
+	int i, j;
+	struct Tugas temp;
+
+	for (i = 0; i < jumlah - 1; i++){
+		for (j = 0; j < jumlah - i - 1; j++){
+			if (data[j].prioritas > data[j + 1].prioritas){
+				temp = data[j];
+				data[j] = data[j+1];
+				data[j+1] = temp;
+			}
+		}
+	}
+}
+
+void quickSort(struct Tugas data[], int low, int high){
+	int i = low, j = high;
+	int pivot = data[(low+high)/2].prioritas;
+
+	while(i <= j){
+		while(data[i].prioritas > pivot) i++;
+		while(data[j].prioritas < pivot) j--;
+
+		if(i <= j){
+			Tugas temp = data[i];
+			data[i] = data[j];
+			data[j] = temp;
+			i++;
+			j--;
+		}
+	}
+	if (low < j) quickSort(data, low, j);
+	if (i < high) quickSort(data, i, high);
+}
+
+void tampilData(){
+	for(int i = 0; i < n; i++){
+		cout << "\nID Tugas: " << data[i].id;
+		cout << "\nJudul Tugas: " << data[i].judul;
+		cout << "\nDeskripsi: " << data[i].deskripsi;
+		cout << "\nTanggal Deadline: " << data[i].tgl_dl; 
+		cout << "\nBulan Deadline: " << data[i].bulan_dl;
+		cout << "\nTahun Deadline: " << data[i].tahun_dl;
+		cout << "\nPrioritas: " << data[i].prioritas;
+		cout << "\nStatus: " << data[i].status << endl;
+	}
+}
+
 void lihatTugas(){
+	bacaFile();
+	int jumlah = n;
+
+	cout << "============================\n";
+	cout << "\nLIHAT TUGAS\n";
+	cout << "============================\n";
+	if(n == 0) {
+		cout << "\nData kosong\n";
+		return;
+	}
+	cout << "\nJumlah Data Tugas : " << n << endl;
+	cout << "Pilih Metode Lihat:\n";
+	cout << "1. Ascending\n";
+	cout << "2. Descending\n";
+	cout << "Masukkan metode: ";
+	
+	int pilih = inputAngka();
+	
+	if(pilih == 1) {
+		bubbleSort(data, jumlah);
+		tampilData();
+	}
+	else if(pilih == 2) {
+		quickSort(data, 0, jumlah - 1);
+		tampilData();
+	}
+	
+	cout << "\nPress any key to continue . . .";
+	cin.ignore();
+	cin.get();
 }
 
 void cariTugas(){
