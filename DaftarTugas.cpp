@@ -174,53 +174,6 @@ void quickSort(struct Tugas data[], int low, int high){
 	if (i < high) quickSort(data, i, high);
 }
 
-void tampilData(){
-	for(int i = 0; i < n; i++){
-		cout << "\nID Tugas: " << data[i].id;
-		cout << "\nJudul Tugas: " << data[i].judul;
-		cout << "\nDeskripsi: " << data[i].deskripsi;
-		cout << "\nTanggal Deadline: " << data[i].tgl_dl; 
-		cout << "\nBulan Deadline: " << data[i].bulan_dl;
-		cout << "\nTahun Deadline: " << data[i].tahun_dl;
-		cout << "\nPrioritas: " << data[i].prioritas;
-		cout << "\nStatus: " << data[i].status << endl;
-	}
-}
-
-void lihatTugas(){
-}
-
-void cariTugas()
-{
-	// menu cari tugas di dalamnya ada menu lagi untuk pencarian sequential dan binary search
-	int metode;
-	bacaFile();
-	char judulCari[100];
-	cout << "============================\n";
-	cout << "\n CARI TUGAS\n";
-	cout << "============================\n";
-	cout << "1. Sequential Search\n";
-	cout << "2. Binary Search\n";
-	cout << "Masukkan judul tugas yang ingin dicari: ";
-	cin.ignore();
-	cin.getline(judulCari, 100);
-
-	cout << "Pilih metode pencarian: ";
-	cin >> metode;
-	metode = inputAngka();
-	if (metode == 1)
-	{
-		sequentialSearch(judulCari);
-	}
-	else if (metode == 2)
-	{
-		binarySearch(judulCari);
-	}
-	else
-	{
-		cout << "Metode tidak valid\n";
-	}
-}
 void sequentialSearch(char x[])
 {
 	bool ditemukan = false;
@@ -281,6 +234,84 @@ void binarySearch(char x[]) {
     }
 }
 
+void tampilData(){
+	for(int i = 0; i < n; i++){
+		cout << "\nID Tugas: " << data[i].id;
+		cout << "\nJudul Tugas: " << data[i].judul;
+		cout << "\nDeskripsi: " << data[i].deskripsi;
+		cout << "\nTanggal Deadline: " << data[i].tgl_dl; 
+		cout << "\nBulan Deadline: " << data[i].bulan_dl;
+		cout << "\nTahun Deadline: " << data[i].tahun_dl;
+		cout << "\nPrioritas: " << data[i].prioritas;
+		cout << "\nStatus: " << data[i].status << endl;
+	}
+}
+
+void lihatTugas(){
+	bacaFile();
+	int jumlah = n;
+
+	cout << "============================\n";
+	cout << "\nLIHAT TUGAS\n";
+	cout << "============================\n";
+	if(n == 0) {
+		cout << "\nData kosong\n";
+		return;
+	}
+	cout << "\nJumlah Data Tugas : " << n << endl;
+	cout << "Pilih Metode Lihat:\n";
+	cout << "1. Ascending\n";
+	cout << "2. Descending\n";
+	cout << "Masukkan metode: ";
+	
+	int pilih = inputAngka();
+	
+	if(pilih == 1) {
+		bubbleSort(data, jumlah);
+		tampilData();
+	}
+	else if(pilih == 2) {
+		quickSort(data, 0, jumlah - 1);
+		tampilData();
+	}
+	
+	cout << "\nPress any key to continue . . .";
+	cin.ignore();
+	cin.get();
+}
+
+void cariTugas()
+{
+	// menu cari tugas di dalamnya ada menu lagi untuk pencarian sequential dan binary search
+	int metode;
+	bacaFile();
+	char judulCari[100];
+	cout << "============================\n";
+	cout << "\n CARI TUGAS\n";
+	cout << "============================\n";
+	cout << "1. Sequential Search\n";
+	cout << "2. Binary Search\n";
+	cout << "Masukkan judul tugas yang ingin dicari: ";
+	cin.ignore();
+	cin.getline(judulCari, 100);
+
+	cout << "Pilih metode pencarian: ";
+	cin >> metode;
+	metode = inputAngka();
+	if (metode == 1)
+	{
+		sequentialSearch(judulCari);
+	}
+	else if (metode == 2)
+	{
+		binarySearch(judulCari);
+	}
+	else
+	{
+		cout << "Metode tidak valid\n";
+	}
+}
+
 void editTugas()
 {
     bacaFile();
@@ -291,7 +322,45 @@ void editTugas()
     };
 
     Node* head = NULL;
-  
+
+	int id;
+	cout << "\nMasukkan ID roti yang mau diedit: ";
+	id = inputAngka();
+
+	for(int i = 0; i < n; i++){
+		if(data[i].id == id){
+			cout << "Data ditemukan\n";
+			
+			cout << "=====================\n";
+			cout << "Data lama:\n";
+			cout << "\nJudul Tugas: " << data[i].judul << endl;
+			cout << "\nDeskripsi: " << data[i].deskripsi << endl;
+			cout << "\nTanggal Deadline: " << data[i].tgl_dl << endl; 
+			cout << "\nBulan Deadline: " << data[i].bulan_dl << endl;
+			cout << "\nTahun Deadline: " << data[i].tahun_dl << endl;
+			cout << "\nPrioritas: " << data[i].prioritas << endl;
+			cout << "\nStatus: " << data[i].status << endl;
+
+			cout << "=====================\n";
+			cout << "Data baru:\n";
+			cout << "\nJudul Tugas: "; cin >> data[i].judul;
+			cout << "\nDeskripsi: "; cin >> data[i].deskripsi;
+			cout << "\nTanggal Deadline: "; cin >> data[i].tgl_dl; 
+			cout << "\nBulan Deadline: "; cin >> data[i].bulan_dl;
+			cout << "\nTahun Deadline: "; cin >> data[i].tahun_dl;
+			cout << "\nPrioritas: "; cin >> data[i].prioritas;
+			cout << "\nStatus: "; cin >> data[i].status;
+
+			simpanFile();
+
+			cout << "\nData tugas berhasil diperbarui\n";
+			cout << "Press any key to continue . . .";
+			cin.ignore();
+			cin.get();
+			return;
+		}
+	}
+	cout << "Data tidak ditemukan\n";
 }
 
 void ubahStatus()
