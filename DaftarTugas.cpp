@@ -324,7 +324,7 @@ void editTugas()
     Node* head = NULL;
 
 	int id;
-	cout << "\nMasukkan ID roti yang mau diedit: ";
+	cout << "\nMasukkan ID tugas yang mau diedit: ";
 	id = inputAngka();
 
 	for(int i = 0; i < n; i++){
