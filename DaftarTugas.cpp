@@ -2,8 +2,7 @@
 #include <stdio.h>
 using namespace std;
 
-struct Tugas
-{
+struct Tugas {
 	int id;
 	char judul[100];
 	char deskripsi[200];
@@ -28,11 +27,9 @@ int bandingkan(char a[], char b[]) {
 	return a[i] - b[i];
 }
 
-int inputAngka()
-{
+int inputAngka() {
 	int x;
-	while (!(cin >> x))
-	{
+	while(!(cin >> x)) {
 		cin.clear();
 		cin.ignore(1000, '\n');
 		cout << "Input harus angka\n";
@@ -42,17 +39,15 @@ int inputAngka()
 
 char namaFile[] = "tugas.txt";
 
-void bacaFile()
-{
-	FILE *fp = fopen(namaFile, "r");
+void bacaFile(){
+	FILE *fp = fopen(namaFile,"r");
 	n = 0;
-
-	if (fp == NULL)
-	{
+	
+	if(fp == NULL){
 		return;
 	}
 	
-	while(fscanf(fp, "%d %s %s %d %d %d %d %d",
+	while(fscanf(fp, "%d|%[^|]|%[^|]|%d|%d|%d|%d|%d\n",
 		&data[n].id, data[n].judul,
 		data[n].deskripsi, &data[n].tgl_dl,
 		&data[n].bulan_dl, &data[n].tahun_dl,
@@ -60,79 +55,74 @@ void bacaFile()
 			
 		n++;
 	}
-
+	
 	fclose(fp);
 }
 
-void simpanFile()
-{
+void simpanFile() {
 	FILE *fp = fopen(namaFile, "w");
-
-	if (fp == NULL)
-	{
+	
+	if(fp == NULL) {
 		cout << "Gagal membuka file\n";
 		return;
 	}
 	
 	for(int i = 0; i < n; i++) {
-		fprintf(fp, "%d %s %s %d %d %d %d %d\n",
+		fprintf(fp, "%d|%s|%s|%d|%d|%d|%d|%d\n",
 			data[i].id, data[i].judul,
 			data[i].deskripsi, data[i].tgl_dl,
 			data[i].bulan_dl, data[i].tahun_dl,
 			data[i].prioritas, data[i].status);
 	}
-
+	
 	fclose(fp);
 }
 
-void inputTugas()
-{
+void inputTugas() {
 	int jumlah;
-
+	
 	bacaFile();
-
+	
 	cout << "============================\n";
 	cout << "\nINPUT TUGAS\n";
 	cout << "============================\n";
 	cout << "\nMasukkan jumlah data Tugas: ";
 	jumlah = inputAngka();
-	if (jumlah <= 0)
-		return;
-
+	if(jumlah <= 0) return;
+	
 	cin.ignore();
-
-	for (int i = 0; i < jumlah; i++)
-	{
-		cout << "\nID Tugas : " << n + 1 << endl;
-		data[n].id = n + 1;
-
-		cout << "Judul Tugas : ";
+	
+	for(int i = 0; i < jumlah; i++) {
+		cout << "\nID Tugas : " << n+1 << endl;
+		data[n].id = n+1;
+		
+		cout << "Judul Tugas : "; 
 		cin.getline(data[n].judul, 100);
-
+		
 		cout << "Deskripsi: ";
 		cin.getline(data[n].deskripsi, 200);
-
+		
 		cout << "Tanggal Deadline: ";
 		data[n].tgl_dl = inputAngka();
-
+		
 		cout << "Bulan Deadline (1-12): ";
 		data[n].bulan_dl = inputAngka();
-
+		
 		cout << "Tahun Deadline: ";
 		data[n].tahun_dl = inputAngka();
-
+		
 		cout << "Prioritas (1=tinggi, 2=sedang, 3=rendah):";
 		data[n].prioritas = inputAngka();
-
+		
 		data[n].status = 0;
-
+		
 		n++;
 
 		simpanFile();
 		cin.ignore();
 		cout << "Tugas berhasil ditambahkan!\n";
 	}
-
+	
 	char ulang;
 	cout << "\nData telah tersimpan\n";
 	cout << "Kembali ke menu? (y/n): ";
@@ -173,6 +163,7 @@ void quickSort(struct Tugas data[], int low, int high){
 	if (low < j) quickSort(data, low, j);
 	if (i < high) quickSort(data, i, high);
 }
+
 void sequentialSearch(char x[])
 {
 	bool ditemukan = false;
@@ -278,8 +269,7 @@ void lihatTugas(){
 	cin.get();
 }
 
-void cariTugas()
-{
+void cariTugas(){
 	int metode;
 	bacaFile();
 	char judulCari[100];
@@ -309,9 +299,8 @@ void cariTugas()
 	}
 }
 
-void editTugas()
-{
-    bacaFile(); // ambil data ke array
+void editTugas(){
+	bacaFile(); // ambil data ke array
  
     struct Node {
         Tugas data;
@@ -407,9 +396,8 @@ void editTugas()
     cout << "Data tidak ditemukan\n";
 }
 
-void ubahStatus()
-{
-    bacaFile();
+void ubahStatus(){
+	bacaFile();
     // Node double linked list
     struct Node {
         Tugas data;
@@ -438,9 +426,10 @@ void ubahStatus()
             baru->prev = temp; // ciri double (punya prev)
         }
     }
-
+	
+	tampilData();
     int id;
-    cout << "Masukkan ID tugas: ";
+    cout << "\nMasukkan ID tugas: ";
     id = inputAngka();
 
     Node* temp = head;
@@ -474,9 +463,8 @@ void ubahStatus()
     cout << "Status berhasil diubah!\n";
 }
 
-void hapusTugas()
-{
-    bacaFile();
+void hapusTugas(){
+	bacaFile();
     struct Node {
         Tugas data;
         Node* next;
@@ -501,9 +489,10 @@ void hapusTugas()
             tail = baru; // update tail
         }
     }
-
+	
+	tampilData();
     int id;
-    cout << "Masukkan ID yang ingin dihapus: ";
+    cout << "\nMasukkan ID yang ingin dihapus: ";
     id = inputAngka();
 
     Node* temp = head;
@@ -547,66 +536,53 @@ void hapusTugas()
     simpanFile();
 }
 
-void menuUtama()
-{
+void menuUtama(){
 	int pilih;
-	do
-	{
+	do {
 		cout << "\n==============================\n";
 		cout << "        Selamat Datang!\n";
 		cout << "==============================\n";
 		cout << "1. Input Tugas\n";
-		cout << "2. Lihat Tugas(dengan sorting)\n";
+		cout << "2. Lihat Tugas\n";
 		cout << "3. Cari Tugas\n";
-		cout << "4. Edit Tugas(	Sisip Data Single Linked list)\n";
-		cout << "5. Ubah Status Tugas(Double Linked list)\n";
-		cout << "6. Hapus Tugas(Linked list kepala ekor)\n";
+		cout << "4. Edit Tugas\n";
+		cout << "5. Ubah Status Tugas\n";
+		cout << "6. Hapus Tugas\n";
 		cout << "7. Logout\n";
 		cout << "Masukkan menu: ";
-
+		
 		pilih = inputAngka();
-
-		if (pilih == 1)
-			inputTugas();
-		else if (pilih == 2)
-			lihatTugas();
-		else if (pilih == 3)
-			cariTugas();
-		else if (pilih == 4)
-			editTugas();
-		else if (pilih == 5)
-			ubahStatus();
-		else if (pilih == 6)
-			hapusTugas();
-
-	} while (pilih != 7);
-
+		
+		if(pilih == 1) inputTugas();
+		else if(pilih == 2) lihatTugas();
+		else if(pilih == 3) cariTugas();
+		else if(pilih == 4) editTugas();
+		else if(pilih == 5) ubahStatus();
+		else if(pilih == 6) hapusTugas();
+		
+	} while(pilih != 7);
+	
 	cout << "\nTerima kasih, sampai jumpa User!\n";
 }
 
-int main()
-{
+int main(){
 	char user[20], pass[20];
-
+	
 	cout << "\n========================================\n";
 	cout << "               Halo User!\n";
 	cout << "Silahkan login untuk masuk ke menu utama\n";
 	cout << "=============================================\n";
-
-	cout << "Masukkan Username: ";
-	cin >> user;
-	cout << "Masukkan Password: ";
-	cin >> pass;
-
+	
+	cout << "Masukkan Username: "; cin >> user;
+	cout << "Masukkan Password: "; cin >> pass;
+	
 	int userbenar = (user[0] == 'r' && user[1] == 'a' && user[2] == 'i' && user[3] == 's' && user[4] == 's' && user[5] == 'a' && user[6] == '\0') || (user[0] == 'l' && user[1] == 'i' && user[2] == 'n' && user[3] == 'd' && user[4] == 'a' && user[5] == '\0');
 	int pwdbenar = (pass[0] == '0' && pass[1] == '7' && pass[2] == '7' && pass[3] == '\0') || (pass[0] == '0' && pass[1] == '8' && pass[2] == '3' && pass[3] == '\0');
-
-	if (userbenar && pwdbenar)
-	{
+	
+	if (userbenar && pwdbenar) {
 		menuUtama();
-	}
-	else
-	{
+	} else {
 		cout << "Login gagal - username atau password salah\n";
 	}
+
 }
