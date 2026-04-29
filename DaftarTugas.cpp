@@ -149,7 +149,6 @@ void quickSort();
 
 void cariTugas()
 {
-	bubbleSort();
 	int metode;
 	bacaFile();
 	char judulCari[100];
