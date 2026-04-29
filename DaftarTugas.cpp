@@ -203,8 +203,6 @@ void binarySearch(char x[]) {
     int i = 0;        // awal
     int j = n - 1;    // akhir
 
-    bubbleSort();
-
     while (i <= j) {
         int k = (i + j) / 2;  // tengah
 
@@ -369,9 +367,9 @@ void editTugas()
 
             cin.ignore();  
             cout << "Judul: "; 
-			getline(cin, temp->data.judul);
+			cin.getline(temp->data.judul, 100);
             cout << "Deskripsi: "; 
-			getline(cin, temp->data.deskripsi);
+			cin.getline(temp->data.deskripsi, 200);
             cout << "Tanggal: "; cin >> temp->data.tgl_dl; 
             cout << "Bulan: "; cin >> temp->data.bulan_dl;
             cout << "Tahun: "; cin >> temp->data.tahun_dl;
