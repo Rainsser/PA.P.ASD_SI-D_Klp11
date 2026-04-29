@@ -139,44 +139,6 @@ void inputTugas()
 	cin >> ulang;
 }
 
-void lihatTugas()
-{
-}
-// cm deklarasi
-void bubbleSort();
-void quickSort(); 
-
-
-void cariTugas()
-{
-	int metode;
-	bacaFile();
-	char judulCari[100];
-	cout << "============================\n";
-	cout << "\n CARI TUGAS\n";
-	cout << "============================\n";
-	cout << "1. Sequential Search\n";
-	cout << "2. Binary Search\n";
-	cout << "Masukkan judul tugas yang ingin dicari: ";
-	cin.ignore();
-	cin.getline(judulCari, 100);
-
-	cout << "Pilih metode pencarian: ";
-	cin >> metode;
-	metode = inputAngka();
-	if (metode == 1)
-	{
-		sequentialSearch(judulCari);
-	}
-	else if (metode == 2)
-	{
-		binarySearch(judulCari);
-	}
-	else
-	{
-		cout << "Metode tidak valid\n";
-	}
-}
 void bubbleSort(struct Tugas data[], int jumlah){
 	int i, j;
 	struct Tugas temp;
@@ -318,6 +280,36 @@ void lihatTugas(){
 	cin.get();
 }
 
+void cariTugas()
+{
+	int metode;
+	bacaFile();
+	char judulCari[100];
+	cout << "============================\n";
+	cout << "\n CARI TUGAS\n";
+	cout << "============================\n";
+	cout << "1. Sequential Search\n";
+	cout << "2. Binary Search\n";
+	cout << "Masukkan judul tugas yang ingin dicari: ";
+	cin.ignore();
+	cin.getline(judulCari, 100);
+
+	cout << "Pilih metode pencarian: ";
+	cin >> metode;
+	metode = inputAngka();
+	if (metode == 1)
+	{
+		sequentialSearch(judulCari);
+	}
+	else if (metode == 2)
+	{
+		binarySearch(judulCari);
+	}
+	else
+	{
+		cout << "Metode tidak valid\n";
+	}
+}
 
 void editTugas()
 {
