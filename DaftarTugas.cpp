@@ -34,10 +34,16 @@ int inputAngka() {
 		cin.ignore(1000, '\n');
 		cout << "Input harus angka\n";
 	}
+	cin.ignore(1000, '\n');
 	return x;
 }
 
 char namaFile[] = "tugas.txt";
+
+void jeda() {
+	cout << "\nTekan Enter untuk lanjut...";
+	cin.get();
+}
 
 void bacaFile(){
 	FILE *fp = fopen(namaFile,"r");
@@ -51,7 +57,7 @@ void bacaFile(){
 		&data[n].id, data[n].judul,
 		data[n].deskripsi, &data[n].tgl_dl,
 		&data[n].bulan_dl, &data[n].tahun_dl,
-		&data[n].prioritas, &data[n].status) != EOF) {
+		&data[n].prioritas, &data[n].status) == 8) {
 			
 		n++;
 	}
@@ -90,8 +96,6 @@ void inputTugas() {
 	jumlah = inputAngka();
 	if(jumlah <= 0) return;
 	
-	cin.ignore();
-	
 	for(int i = 0; i < jumlah; i++) {
 		cout << "\nID Tugas : " << n+1 << endl;
 		data[n].id = n+1;
@@ -119,7 +123,6 @@ void inputTugas() {
 		n++;
 
 		simpanFile();
-		cin.ignore();
 		cout << "Tugas berhasil ditambahkan!\n";
 	}
 	
@@ -264,9 +267,7 @@ void lihatTugas(){
 		tampilData();
 	}
 	
-	cout << "\nPress any key to continue . . .";
-	cin.ignore();
-	cin.get();
+	jeda();
 }
 
 void cariTugas(){
@@ -279,11 +280,9 @@ void cariTugas(){
 	cout << "1. Sequential Search\n";
 	cout << "2. Binary Search\n";
 	cout << "Masukkan judul tugas yang ingin dicari: ";
-	cin.ignore();
 	cin.getline(judulCari, 100);
 
 	cout << "Pilih metode pencarian: ";
-	cin >> metode;
 	metode = inputAngka();
 	if (metode == 1)
 	{
@@ -354,16 +353,15 @@ void editTugas(){
             cout << "=====================\n";
             cout << "Data baru:\n";
 
-            cin.ignore();  
             cout << "Judul: "; 
 			cin.getline(temp->data.judul, 100);
             cout << "Deskripsi: "; 
 			cin.getline(temp->data.deskripsi, 200);
-            cout << "Tanggal: "; cin >> temp->data.tgl_dl; 
-            cout << "Bulan: "; cin >> temp->data.bulan_dl;
-            cout << "Tahun: "; cin >> temp->data.tahun_dl;
-            cout << "Prioritas: "; cin >> temp->data.prioritas;
-            cout << "Status: "; cin >> temp->data.status;
+            cout << "Tanggal: "; temp->data.tgl_dl = inputAngka(); 
+            cout << "Bulan: "; temp->data.bulan_dl = inputAngka();
+            cout << "Tahun: "; temp->data.tahun_dl = inputAngka();
+            cout << "Prioritas: "; temp->data.prioritas = inputAngka();
+            cout << "Status: "; temp->data.status = inputAngka();
 
             // Simpan kembali ke array
             Node* save = head;
@@ -386,8 +384,7 @@ void editTugas(){
                 delete hapus;
             }
 
-            cin.ignore();
-            cin.get();
+            jeda();
             return;
         }
         temp = temp->next;
