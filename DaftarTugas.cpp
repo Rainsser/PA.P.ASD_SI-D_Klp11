@@ -115,7 +115,7 @@ void inputTugas() {
 		cout << "Tahun Deadline: ";
 		data[n].tahun_dl = inputAngka();
 		
-		cout << "Prioritas (1=tinggi, 2=sedang, 3=rendah):";
+		cout << "Prioritas (1=tinggi, 2=sedang, 3=rendah): ";
 		data[n].prioritas = inputAngka();
 		
 		data[n].status = 0;
