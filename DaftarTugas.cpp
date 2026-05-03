@@ -236,41 +236,6 @@ void tampilData(){
 	}
 }
 
-void bubbleSort(struct Tugas data[], int jumlah){
-	int i, j;
-	struct Tugas temp;
-
-	for (i = 0; i < jumlah - 1; i++){
-		for (j = 0; j < jumlah - i - 1; j++){
-			if (data[j].prioritas > data[j + 1].prioritas){
-				temp = data[j];
-				data[j] = data[j+1];
-				data[j+1] = temp;
-			}
-		}
-	}
-}
-
-void quickSort(struct Tugas data[], int low, int high){
-	int i = low, j = high;
-	int pivot = data[(low+high)/2].prioritas;
-
-	while(i <= j){
-		while(data[i].prioritas > pivot) i++;
-		while(data[j].prioritas < pivot) j--;
-
-		if(i <= j){
-			Tugas temp = data[i];
-			data[i] = data[j];
-			data[j] = temp;
-			i++;
-			j--;
-		}
-	}
-	if (low < j) quickSort(data, low, j);
-	if (i < high) quickSort(data, i, high);
-}
-
 void lihatTugas(){
 	bacaFile();
 	int jumlah = n;
