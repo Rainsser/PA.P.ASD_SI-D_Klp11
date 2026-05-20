@@ -231,9 +231,7 @@ void tampilData(){
 		cout << "\nID Tugas: " << data[i].id;
 		cout << "\nJudul Tugas: " << data[i].judul;
 		cout << "\nDeskripsi: " << data[i].deskripsi;
-		cout << "\nTanggal Deadline: " << data[i].tgl_dl; 
-		cout << "\nBulan Deadline: " << data[i].bulan_dl;
-		cout << "\nTahun Deadline: " << data[i].tahun_dl;
+		cout << "\nTanggal Deadline: " << data[i].tgl_dl << "/" << data[i].bulan_dl << "/" << data[i].tahun_dl; 
 		cout << "\nPrioritas: " << data[i].prioritas;
 		cout << "\nStatus: " << data[i].status << endl;
 	}
